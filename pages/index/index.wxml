@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
+  <view class="userinfo">
     <image
         class="userinfo-avatar"
         src="{{userInfo.avatarUrl}}"
@@ -10,6 +10,16 @@
     <text class="userinfo-nickname">{{rotate}}</text>
   </view>
   <view class="usermotto">
+    <input value="{{motto}}" bindinput="bindInput" />
     <text class="user-motto">{{motto}}</text>
+  </view>
+  <view>
+    <canvas
+      disable-scroll="true"
+      style="width: 300px; height: 200px;"
+      canvas-id="myCanvas"
+      class="canvas"
+      bindtouchmove="bindTouchMove"
+    />
   </view>
 </view>

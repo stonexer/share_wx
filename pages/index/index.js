@@ -8,36 +8,62 @@ Page({
     rotate: 0
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+
+  bindInput(e) {
+    console.log(e)
+    this.setData({
+      motto: e.detail.value
+    })
+  },
+
+  bindTouchMove(e) {
+    const touch = e.touches[0]
+
+    if (this.lastTouch) {
+      this.ctx.setFillStyle('#fdfdfd')
+      this.ctx.fillRect(touch.x, touch.y, 5, 5)
+      this.ctx.draw(true)
+    }
+
+    this.lastTouch = touch;
+
+  },
+
+  onLoad() {
     console.log('onLoad')
-    var that = this
+
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
+    app.getUserInfo((userInfo) => {
       //更新数据
-      that.setData({
+      this.setData({
         userInfo:userInfo
       })
     })
 
-    wx.onCompassChange(function (res) {
-      if (that.direction == null) {
-        that.direction = res.direction;
+    wx.onCompassChange((res) => {
+      if (this.direction == null) {
+        this.direction = res.direction;
       }
 
-      that.setData({
-        rotate: that.direction - res.direction
+      this.setData({
+        rotate: this.direction - res.direction
       })
 
-      wx.setScreenBrightness({
-        value: Math.abs((that.direction - res.direction - 180)) / 360
-      })
+      // wx.setScreenBrightness({
+        // value: Math.abs((this.direction - res.direction - 180)) / 360
+      // })
     })
 
     wx.startCompass()
+
+    this.ctx = wx.createCanvasContext('myCanvas')
+    this.ctx.setFillStyle('#209e85')
+    this.ctx.fillRect(0, 0, 300, 200)
+    this.ctx.draw()
   }
 })
