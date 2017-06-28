@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image
+        class="userinfo-avatar"
+        src="{{userInfo.avatarUrl}}"
+        background-size="cover"
+        style="transform: rotate({{rotate}}deg)"
+    ></image>
+    <text class="userinfo-nickname">{{rotate}}</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
